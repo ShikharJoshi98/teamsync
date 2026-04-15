@@ -1,4 +1,5 @@
 'use client';
+import { prisma } from "@/app/lib/prisma";
 import { useState } from "react"
 
 export default function SignupPage() {
@@ -6,6 +7,7 @@ export default function SignupPage() {
     const [password, setPassword] = useState('');
 
     const handleSubmit = async () => {
+
         const res = await fetch("/api/auth/signup", {
             method: "POST",
             body: JSON.stringify({ email, password })
