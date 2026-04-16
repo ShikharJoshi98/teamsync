@@ -1,5 +1,0 @@
-interface User {
-    email: string,
-    password: string
-}
-export const users:User[] = [];
