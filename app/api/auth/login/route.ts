@@ -1,3 +1,4 @@
+import { signToken } from "@/app/lib/jwt";
 import { prisma } from "@/app/lib/prisma";
 import bcrypt from "bcryptjs";
 
@@ -24,13 +25,20 @@ export async function POST(req: Request) {
                 { status: 400 }
             );
         }
-        
-        return Response.json({
+
+        const response = Response.json({
             success: true,
             message: "Logged in successfully"
         }, {
             status: 200
         });
+        const token = signToken({ email });
+
+        response.headers.set(
+            "Set-Cookie",
+            `token=${token}; HttpOnly; Path=/`
+        );
+        return response;
     } catch (error) {
         return Response.json({
             success: false,

@@ -1,4 +1,5 @@
 'use client';
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -11,7 +12,9 @@ export default function LoginPage() {
             body: JSON.stringify({ email, password })
         });
         const data = await res.json();
-        console.log(data);
+        if (data.success === true) {
+            redirect("/dashboard");
+        }
     }
 
     return (
