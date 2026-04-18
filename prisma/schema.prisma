@@ -17,5 +17,14 @@ model User {
   id        String   @id @default(uuid())
   email     String   @unique
   password  String
+  workspaces Workspace[]
   createdAt DateTime @default(now())
+}
+
+model Workspace{
+  id        String   @id @default(uuid())
+  name      String
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id])
+  createdAt DateTime @default(now())     
 }
